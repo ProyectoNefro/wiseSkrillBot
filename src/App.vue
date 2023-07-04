@@ -20,7 +20,7 @@ const fetchData = async () => {
 };
 
 const sendTelegram = async () => {
-  const loadingMessage = ref(true);
+  loadingMessage.value = true;
   const response = await sendMessage();
   if (response.status === 200) {
     alert("Message sent successfully");
@@ -141,9 +141,9 @@ onUnmounted(() => {
       </template>
     </div>
     <div class="buttonContainer flex justify-center items-center pt-16">
-      <button class="btn btn-info" @click="sendTelegram">
-        <span v-if="!loadingMessage">Send data via Telegram</span>
-        <span v-else class="loading loading-spinner"></span>
+      <button class="btn btn-info text-white" @click="sendTelegram">
+        <span v-if="loadingMessage" class="loading loading-spinner"></span>
+        <span v-else>Send data via Telegram</span>
       </button>
     </div>
   </div>
