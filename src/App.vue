@@ -6,6 +6,7 @@ import axios from "axios";
 const skrillData = ref({});
 const wiseData = ref({});
 const loading = ref(true);
+const loadingMessage = ref(false);
 
 const fetchData = async () => {
   try {
@@ -19,8 +20,14 @@ const fetchData = async () => {
 };
 
 const sendTelegram = async () => {
+  const loadingMessage = ref(true);
   const response = await sendMessage();
-  console.log(response);
+  if (response.status === 200) {
+    alert("Message sent successfully");
+    loadingMessage.value = false;
+  } else {
+    alert("Error sending message");
+  }
 };
 
 const fetchDataEveryFiveMinutes = async () => {
@@ -134,8 +141,9 @@ onUnmounted(() => {
       </template>
     </div>
     <div class="buttonContainer flex justify-center items-center pt-16">
-      <button class="btn btn-primary" @click="sendTelegram">
-        Send data via Telegram
+      <button class="btn btn-info" @click="sendTelegram">
+        <span v-if="!loadingMessage">Send data via Telegram</span>
+        <span v-else class="loading loading-spinner"></span>
       </button>
     </div>
   </div>
