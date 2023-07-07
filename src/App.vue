@@ -76,8 +76,8 @@ onUnmounted(() => {
               <th class="hidden md:block"></th>
               <th>Price</th>
               <th class="hidden md:block">User</th>
-              <th>Minimum Buy</th>
-              <th>Maximum Buy</th>
+              <th>Minimum Buy (ARS)</th>
+              <th>Maximum Buy (ARS)</th>
               <th class="hidden md:block">Positive Rate</th>
             </tr>
           </thead>
