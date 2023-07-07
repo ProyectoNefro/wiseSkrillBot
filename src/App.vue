@@ -5,6 +5,7 @@ import axios from "axios";
 
 const skrillData = ref({});
 const wiseData = ref({});
+const USDTData = ref({});
 const loading = ref(true);
 const loadingMessage = ref(false);
 
@@ -13,6 +14,7 @@ const fetchData = async () => {
     const response = await getData();
     skrillData.value = response.skrill;
     wiseData.value = response.wise;
+    USDTData.value = response.usdt;
     loading.value = false;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -62,6 +64,40 @@ onUnmounted(() => {
         ></span>
       </div>
       <template v-else>
+        <img
+          class="w-24 my-4"
+          src="https://cryptologos.cc/logos/tether-usdt-logo.png"
+          alt=""
+        />
+        <table class="table text-center w-full mb-8" v-if="!loading">
+          <!-- head -->
+          <thead class="bg-white text-green-700 font-bold">
+            <tr>
+              <th class="hidden md:block"></th>
+              <th>Price</th>
+              <th class="hidden md:block">User</th>
+              <th>Minimum Buy</th>
+              <th>Maximum Buy</th>
+              <th class="hidden md:block">Positive Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(item, index) in Object.values(USDTData)"
+              :key="index"
+              class="bg-green-700 text-white font-bold"
+            >
+              <th class="hidden md:block">{{ index + 1 }}</th>
+              <td>$ {{ item.price }}</td>
+              <td class="hidden md:block">{{ item.user }}</td>
+              <td>{{ item.minimum }}</td>
+              <td>{{ item.maximum }}</td>
+              <td class="hidden md:block">
+                {{ item.positiveRate.toFixed(2) }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <img
           class="w-24"
           src="https://d21buns5ku92am.cloudfront.net/69645/images/470451-Frame%2039321-0745ed-medium-1677657684.png"
